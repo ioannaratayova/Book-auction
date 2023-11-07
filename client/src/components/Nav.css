@@ -1,19 +1,19 @@
   .navbar {
     background-color: #F5BFB4;
     padding: 10px 20px;
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
   }
-  
+
   .navbar li {
     font-family: cursive;
     margin-right: 20px;
     font-size: 22px;
-    
+
   }
-  
+
   .navbar ul {
     display: flex;
     align-items: center;

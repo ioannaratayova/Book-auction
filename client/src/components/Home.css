@@ -1,0 +1,106 @@
+/* Reset default margin for the body */
+body {
+    margin: 0;
+}
+
+/* Styles for the slider section */
+.slider_section {
+    background-color: #F5BFB4;
+}
+
+/* Styles for the slider container */
+.slider_container {
+    background-image: url('../static/book-photo-home.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Styles for the detail box */
+.detail-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.detail-box h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.detail-box p {
+    font-size: 1.5rem;
+}
+
+/* Styles for links in the detail box */
+.detail-box a {
+    display: inline-block;
+    padding: 10px 40px;
+    background-color: #db4566;
+    color: #fff;
+    border: 1px solid #db4566;
+    border-radius: 5px;
+    transition: all 0.3s;
+    margin-top: 25px;
+    text-transform: uppercase;
+    cursor: pointer; /* Add a pointer cursor to links */
+}
+
+.detail-box a:hover {
+    background-color: transparent;
+    color: #db4566;
+}
+
+/* Center text inside the img-box */
+.img-box {
+    display: flex;
+    justify-content: center;
+}
+
+/* Adjust the size of the image */
+.img-box img {
+    width: 275px;
+}
+
+/* Simplified styles for the slider_container and row in slider_section */
+.slider_section .slider_container {
+    border-radius: 0 0 15px 15px;
+    position: relative;
+    height: 100vh;
+}
+
+.slider_section .row {
+    align-items: center;
+}
+
+/* Simplified styles for carousel controls */
+.carousel_btn-box {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    position: absolute;
+    bottom: -25px;
+    left: 5%;
+    padding: 7px 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+.carousel_btn-box img {
+    margin: 0 10px;
+}
+
+.carousel_btn-box .carousel-control-prev,
+.carousel_btn-box .carousel-control-next {
+    position: unset;
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    opacity: 1;
+    background-position: center;
+    color: black;
+    font-size: 14px;
+}
