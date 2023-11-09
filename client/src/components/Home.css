@@ -3,7 +3,7 @@ body {
 }
 
 .slider_section {
-    background-color: #DE4949;
+    background-color: #EC8FA4;
 }
 
 .slider_container {
@@ -35,9 +35,9 @@ body {
 .detail-box a {
     display: inline-block;
     padding: 10px 40px;
-    background-color: #DE4949;
+    background-color: #EC8FA4;
     color: #fff;
-    border: 1px solid #DE4949;
+    border: 1px solid #EC8FA4;
     border-radius: 5px;
     transition: all 0.3s;
     margin-top: 25px;
@@ -47,7 +47,7 @@ body {
 
 .detail-box a:hover {
     background-color: transparent;
-    color: #DE4949;
+    color: #EC8FA4;
 }
 
 .img-box {

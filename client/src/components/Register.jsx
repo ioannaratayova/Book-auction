@@ -2,16 +2,18 @@ import { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext.js'
 import { useForm } from '../hooks/useForm.js'
 import { Link } from 'react-router-dom'
-import './Login.css'
+import './Register.css'
 
 
 
-export const Login = () => {
-    const { onLoginSubmit } = useContext(AuthContext)
+export const Register = () => {
+    const { onRegisterSubmit } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
+        username: '',
         email: '',
         password: '',
-    }, onLoginSubmit)
+        repassword: ''
+    }, onRegisterSubmit)
 
     return (
 
@@ -22,7 +24,14 @@ export const Login = () => {
                     rel="stylesheet"
                 />
                 <form onSubmit={onSubmit}>
-                    <h1 className="">Login</h1>
+                    <h1 className="">Register</h1>
+
+                    <div className='input-box'>
+                        <input type="username" name='username'
+                            placeholder="Username" value={values.username}
+                            onChange={changeHandler} />
+                        <i className='bx bxs-user'></i>
+                    </div>
 
                     <div className='input-box'>
                         <input type="email" name='email'
@@ -38,11 +47,18 @@ export const Login = () => {
                         <i className='bx bxs-lock-alt'></i>
                     </div>
 
-                    <button className='btn-login'>Login</button>
+                    <div className='input-box'>
+                        <input type="repassword" name='repassword'
+                            placeholder="Repeat Password" value={values.repassword}
+                            onChange={changeHandler} />
+                        <i className='bx bxs-lock-alt'></i>
+                    </div>
 
-                    <div className='register-link'>
-                        <p>Don't have an account?&nbsp;
-                            <Link to={'/register'}>Register</Link>
+                    <button className='btn-register'>Register</button>
+
+                    <div className='login-link'>
+                        <p>Already have an account?&nbsp;
+                            <Link to={'/login'}>Login</Link>
                         </p>
                     </div>
                 </form>
