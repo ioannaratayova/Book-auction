@@ -7,7 +7,7 @@ import './Login.css'
 
 
 export const Login = () => {
-    const { onLoginSubmit } = useContext(AuthContext)
+    const { onLoginSubmit, errorLogin } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
         email: '',
         password: '',
@@ -21,7 +21,8 @@ export const Login = () => {
                     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
                     rel="stylesheet"
                 />
-                <form onSubmit={onSubmit}>
+                
+                <form method='POST' onSubmit={onSubmit}>
                     <h1 className="">Login</h1>
 
                     <div className='input-box'>
@@ -39,7 +40,7 @@ export const Login = () => {
                     </div>
 
                     <button className='btn-login'>Login</button>
-
+                    <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorLogin ? errorLogin : '\u00A0'}</p>
                     <div className='register-link'>
                         <p>Don't have an account?&nbsp;
                             <Link to={'/register'}>Register</Link>

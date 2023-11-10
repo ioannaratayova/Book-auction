@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Home } from './components/Home'
 import { Nav } from './components/Nav'
 import { Login } from './components/Login'
@@ -6,29 +6,41 @@ import { AuthContext } from './contexts/AuthContext.js';
 import { useState } from 'react';
 import { Register } from './components/Register.jsx';
 import { Create } from "./components/Create.jsx";
+import * as authService from './services/authService'
 
 
 function App() {
+    const navigate = useNavigate();
     const [auth, setAuth] = useState({})
+    const [errorLogin, setErrorLogin] = useState('')
 
     const onLoginSubmit = async (data) => {
-        console.log(4)
-        console.log(data)
+        try {
+            const result = await authService.login(data)
+            if (result.accessToken) {
+                setAuth(result)
+                navigate('/catalog')
+            }
+            else { 
+                throw new Error('Invalid login')
+            }
+        }
+        catch (error){
+            setErrorLogin('Invalid email or password')
+        }
 
     }
 
     const onRegisterSubmit = async (data) => {
-        console.log('raboti 1');
         console.log(data);
     }
 
     const onCreateSubmit = async (data) => {
-        console.log('Create works!');
         console.log(data);
     }
 
     return (
-        <AuthContext.Provider value={{ auth, onLoginSubmit, onRegisterSubmit, onCreateSubmit }}>
+        <AuthContext.Provider value={{ auth, errorLogin, onLoginSubmit, onRegisterSubmit, onCreateSubmit }}>
             <div>
                 <Nav />
                 <Routes>
