@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Home } from './components/Home'
 import { Nav } from './components/Nav'
 import { Login } from './components/Login'
+import { Logout } from './components/Logout'
 import { AuthContext } from './contexts/AuthContext.js';
 import { useState } from 'react';
 import { Register } from './components/Register.jsx';
@@ -13,6 +14,7 @@ function App() {
     const navigate = useNavigate();
     const [auth, setAuth] = useState({})
     const [errorLogin, setErrorLogin] = useState('')
+    const [errorRegister, setErrorRegister] = useState('')
 
     const onLoginSubmit = async (data) => {
         try {
@@ -32,7 +34,28 @@ function App() {
     }
 
     const onRegisterSubmit = async (data) => {
-        console.log(data);
+        const {repassword, ...registerData} = data
+        // validate data ??
+        if (repassword != registerData.password){
+            setErrorRegister('Passwords don\'t match!')
+            return
+        }
+
+        try {
+            const result = await authService.register(registerData);
+            const {password, ...authData} = result
+            setAuth(authData)
+            navigate('/catalog')
+        }
+        catch (error){
+            setErrorRegister('Error')
+        }
+    }
+
+    const onLogout = async () => {
+        // to do 
+        // await authService.logout();
+        setAuth({})
     }
 
     const onCreateSubmit = async (data) => {
@@ -40,7 +63,7 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, errorLogin, onLoginSubmit, onRegisterSubmit, onCreateSubmit }}>
+        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, onLoginSubmit, onRegisterSubmit, onCreateSubmit, onLogout }}>
             <div>
                 <Nav />
                 <Routes>
@@ -51,7 +74,7 @@ function App() {
                     <Route path='/myitems' element={<h1>My items</h1>} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
-                    <Route path='/logout' element={<h1>Logout</h1>} />
+                    <Route path='/logout' element={<Logout />} />
                 </Routes>
             </div>
         </AuthContext.Provider>

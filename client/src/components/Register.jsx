@@ -7,7 +7,7 @@ import './Register.css'
 
 
 export const Register = () => {
-    const { onRegisterSubmit } = useContext(AuthContext)
+    const { onRegisterSubmit, errorRegister } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
         username: '',
         email: '',
@@ -23,7 +23,7 @@ export const Register = () => {
                     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
                     rel="stylesheet"
                 />
-                <form onSubmit={onSubmit}>
+                <form method='POST' onSubmit={onSubmit}>
                     <h1 className="">Register</h1>
 
                     <div className='input-box'>
@@ -55,6 +55,7 @@ export const Register = () => {
                     </div>
 
                     <button className='btn-register'>Register</button>
+                    <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorRegister ? errorRegister : '\u00A0'}</p>
 
                     <div className='login-link'>
                         <p>Already have an account?&nbsp;
