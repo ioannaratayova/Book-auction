@@ -22,7 +22,7 @@ export const Login = () => {
                     rel="stylesheet"
                 />
                 
-                <form method='POST' onSubmit={onSubmit}>
+                <form onSubmit={onSubmit}>
                     <h1 className="">Login</h1>
 
                     <div className='input-box'>
