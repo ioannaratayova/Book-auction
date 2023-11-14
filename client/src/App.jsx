@@ -7,7 +7,9 @@ import { AuthContext } from './contexts/AuthContext.js';
 import { useState } from 'react';
 import { Register } from './components/Register.jsx';
 import { Create } from "./components/Create.jsx";
+import { Catalog } from './components/Catalog.jsx';
 import * as authService from './services/authService'
+import * as bookService from './services/bookService'
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
     const [auth, setAuth] = useState({})
     const [errorLogin, setErrorLogin] = useState('')
     const [errorRegister, setErrorRegister] = useState('')
+    const [books, setBooks] = useState([])
 
     const onLoginSubmit = async (data) => {
         try {
@@ -23,31 +26,31 @@ function App() {
                 setAuth(result)
                 navigate('/catalog')
             }
-            else { 
+            else {
                 throw new Error('Invalid login')
             }
         }
-        catch (error){
+        catch (error) {
             setErrorLogin('Invalid email or password')
         }
 
     }
 
     const onRegisterSubmit = async (data) => {
-        const {repassword, ...registerData} = data
+        const { repassword, ...registerData } = data
         // validate data ??
-        if (repassword != registerData.password){
+        if (repassword != registerData.password) {
             setErrorRegister('Passwords don\'t match!')
             return
         }
 
         try {
             const result = await authService.register(registerData);
-            const {password, ...authData} = result
+            const { password, ...authData } = result
             setAuth(authData)
             navigate('/catalog')
         }
-        catch (error){
+        catch (error) {
             setErrorRegister('Error')
         }
     }
@@ -58,17 +61,19 @@ function App() {
         setAuth({})
     }
 
-    const onCreateSubmit = async (data) => {
-        console.log(data);
+    const onCreateBookSubmit = async (data) => {
+        const newBook = await bookService.create(data)
+        setBooks(state => [...state, newBook])
+        navigate('/catalog')
     }
 
     return (
-        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, onLoginSubmit, onRegisterSubmit, onCreateSubmit, onLogout }}>
+        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout }}>
             <div>
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/catalog' element={<h1>catalog</h1>} />
+                    <Route path='/catalog' element={<h1><Catalog /></h1>} />
                     <Route path='/catalog/:itemId' element={<h1>catalog s id</h1>} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/myitems' element={<h1>My items</h1>} />

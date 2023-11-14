@@ -40,7 +40,9 @@ export const Login = () => {
                     </div>
 
                     <button className='btn-login'>Login</button>
+                    
                     <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorLogin ? errorLogin : '\u00A0'}</p>
+                    
                     <div className='register-link'>
                         <p>Don't have an account?&nbsp;
                             <Link to={'/register'}>Register</Link>

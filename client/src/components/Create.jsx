@@ -6,13 +6,13 @@ import './Create.css'
 
 
 export const Create = () => {
-    const { onCreateSubmit } = useContext(AuthContext)
+    const { onCreateBookSubmit } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
         name: '',
         description: '',
         image: '',
         category: '',
-    }, onCreateSubmit)
+    }, onCreateBookSubmit)
 
     return (
 
