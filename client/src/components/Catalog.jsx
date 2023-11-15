@@ -2,13 +2,15 @@ import { useContext } from 'react'
 import './Catalog.css'
 import { useForm } from '../hooks/useForm.js'
 
+import bookImage from '../static/book-photo-home.png';
+
 
 
 export const Catalog = () => {
-    
+
     return (
 
-        <section id="catalog">
+        <section className="catalog">
             <h1>All posts</h1>
             <div className="band">
                 <div className="flip flip-vertical">
@@ -16,15 +18,19 @@ export const Catalog = () => {
 
                     </div>
                     <div className="back">
+
+                    <img src={bookImage} alt="Product Image" className="product-image" />
+
                         <h1>Name</h1>
-                        <h2>Species:</h2>
+
                         <p>Description: </p>
+
                         <a href="#" className="details">Details</a>
                     </div>
 
-                    
+
                 </div>
-                
+
             </div>
         </section>
     )
