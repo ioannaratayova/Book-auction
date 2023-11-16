@@ -69,8 +69,15 @@ function App() {
     }
 
     const onCreateBookSubmit = async (data) => {
-        const newBook = await bookService.create(data, auth.accessToken)
+        const result = await bookService.create(data, auth.accessToken)
+        const newBook = {...result, currentPrice: result.startingPrice}
         setBooks(state => [...state, newBook])
+        navigate('/catalog')
+    }
+
+    const onDeleteBook = async (book) => {
+        await bookService.deleteBook(book._id, auth.accessToken)
+        setBooks(state => state.filter(x => x._id !== book._id))
         navigate('/catalog')
     }
 
@@ -81,7 +88,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/catalog' element={<h1><Catalog books={books} /></h1>} />
-                    <Route path='/catalog/:itemId' element={< Details />} />
+                    <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/myitems' element={<h1>My items</h1>} />
                     <Route path='/login' element={<Login />} />

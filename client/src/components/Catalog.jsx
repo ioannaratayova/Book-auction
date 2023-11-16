@@ -3,6 +3,7 @@ import { CatalogItem } from './CatalogItem.jsx'
 
 
 export const Catalog = ({books}) => {
+    
     return (
         <section className="catalog">
             <h1>All books</h1>

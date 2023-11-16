@@ -12,13 +12,15 @@ export const Create = () => {
         genre: '',
         description: '',
         startingPrice: '',
-        duration: '',
+        currentPrice: '',
+        endDateTime: 'YYYY-MM-DDTHH:mm',
         image: ''
     }, onCreateBookSubmit)
 
     return (
 
         <div className='container-wrapper'>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <div className='wrapper'>
                 <form onSubmit={onSubmit}>
                     <h1 className="">Create auction</h1>
@@ -42,20 +44,21 @@ export const Create = () => {
                     </div>
 
                     <div className='input-box'>
-                        <input type="number" name='startingPrice'
+                        <input type="number" name='startingPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                             placeholder="Starting Price" value={values.startingPrice}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <input type="duration" name='duration'
-                            placeholder="Duration" value={values.duration}
-                            onChange={changeHandler} />
+                        <label>Duration</label>
+                        <input type="datetime-local" name='endDateTime' id="datetime"
+                            placeholder="Duration" value={values.endDateTime}
+                            onChange={changeHandler} />   
                     </div>
 
                     <div className='input-box'>
                         <input type="img" name='image'
-                            placeholder="Image" value={values.image}
+                            placeholder="Image URL" value={values.image}
                             onChange={changeHandler} />
                     </div>
 

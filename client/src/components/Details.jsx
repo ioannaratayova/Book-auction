@@ -1,7 +1,26 @@
+import { useContext, useEffect, useState } from 'react';
 import './Details.css';
+import { AuthContext } from '../contexts/AuthContext.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import * as bookService from '../services/bookService';
 
-export const Details = () => {
 
+export const Details = ({onDeleteBook}) => {
+    const { auth } = useContext(AuthContext)
+    const { bookId } = useParams()
+    const [ book, setBook ] = useState({})
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        bookService.getOne(bookId)
+            .then(result => {
+                setBook(result)
+            })
+    }, [bookId])
+
+    const isOwner = book._ownerId === auth._id
+
+    
 
     return (
         <div>
@@ -23,9 +42,7 @@ export const Details = () => {
                             <a href="#" className="edit-btn">
                                 Edit
                             </a>
-                            <a href="#" className="del-btn">
-                                Delete
-                            </a>
+                            <button className="del-btn" onClick={() => onDeleteBook(book)}>Delete</button>
                             {/* logged in users, who have not yet comment*/}
                             <a href="#" className="comment-up">
                                 Comment
