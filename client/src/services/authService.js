@@ -10,6 +10,6 @@ export const register = (data) => {
     return request.post(`${baseUrl}/register`, data)
 }
 
-export const logout = () => {
-    return request.get(`${baseUrl}/logout`)
+export const logout = (token) => {
+    return request.get(`${baseUrl}/logout`, undefined , token)
 }

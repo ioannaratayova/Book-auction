@@ -4,10 +4,11 @@ import { Nav } from './components/Nav'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
 import { AuthContext } from './contexts/AuthContext.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Register } from './components/Register.jsx';
 import { Create } from "./components/Create.jsx";
 import { Catalog } from './components/Catalog.jsx';
+import { Details } from './components/Details.jsx';
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
 
@@ -18,6 +19,13 @@ function App() {
     const [errorLogin, setErrorLogin] = useState('')
     const [errorRegister, setErrorRegister] = useState('')
     const [books, setBooks] = useState([])
+
+    useEffect(() => {
+        bookService.getAll()
+            .then(result => {
+                setBooks(result)
+            })
+    }, []);
 
     const onLoginSubmit = async (data) => {
         try {
@@ -56,13 +64,12 @@ function App() {
     }
 
     const onLogout = async () => {
-        // to do 
-        // await authService.logout();
+        await authService.logout(auth.accessToken);
         setAuth({})
     }
 
     const onCreateBookSubmit = async (data) => {
-        const newBook = await bookService.create(data)
+        const newBook = await bookService.create(data, auth.accessToken)
         setBooks(state => [...state, newBook])
         navigate('/catalog')
     }
@@ -73,8 +80,8 @@ function App() {
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/catalog' element={<h1><Catalog /></h1>} />
-                    <Route path='/catalog/:itemId' element={<h1>catalog s id</h1>} />
+                    <Route path='/catalog' element={<h1><Catalog books={books} /></h1>} />
+                    <Route path='/catalog/:itemId' element={< Details />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/myitems' element={<h1>My items</h1>} />
                     <Route path='/login' element={<Login />} />

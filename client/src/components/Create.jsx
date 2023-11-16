@@ -8,10 +8,12 @@ import './Create.css'
 export const Create = () => {
     const { onCreateBookSubmit } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
-        name: '',
+        title: '',
+        genre: '',
         description: '',
-        image: '',
-        category: '',
+        startingPrice: '',
+        duration: '',
+        image: ''
     }, onCreateBookSubmit)
 
     return (
@@ -22,8 +24,14 @@ export const Create = () => {
                     <h1 className="">Create auction</h1>
 
                     <div className='input-box'>
-                        <input type="name" name='name'
-                            placeholder="Name" value={values.name}
+                        <input type="name" name='title'
+                            placeholder="Name" value={values.title}
+                            onChange={changeHandler} />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="genre" name='genre'
+                            placeholder="Genre" value={values.genre}
                             onChange={changeHandler} />
                     </div>
 
@@ -34,14 +42,20 @@ export const Create = () => {
                     </div>
 
                     <div className='input-box'>
-                        <input type="img" name='image'
-                            placeholder="Image" value={values.image}
+                        <input type="number" name='startingPrice'
+                            placeholder="Starting Price" value={values.startingPrice}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <input type="category" name='category'
-                            placeholder="Category" value={values.category}
+                        <input type="duration" name='duration'
+                            placeholder="Duration" value={values.duration}
+                            onChange={changeHandler} />
+                    </div>
+
+                    <div className='input-box'>
+                        <input type="img" name='image'
+                            placeholder="Image" value={values.image}
                             onChange={changeHandler} />
                     </div>
 
