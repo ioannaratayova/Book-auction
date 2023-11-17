@@ -18,6 +18,7 @@ function App() {
     const [auth, setAuth] = useState({})
     const [errorLogin, setErrorLogin] = useState('')
     const [errorRegister, setErrorRegister] = useState('')
+    const [errorCreate, setErrorCreate] = useState('')
     const [books, setBooks] = useState([])
 
     useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
             const result = await authService.login(data)
             if (result.accessToken) {
                 setAuth(result)
+                setErrorLogin('')
                 navigate('/catalog')
             }
             else {
@@ -56,6 +58,7 @@ function App() {
             const result = await authService.register(registerData);
             const { password, ...authData } = result
             setAuth(authData)
+            setErrorRegister('')
             navigate('/catalog')
         }
         catch (error) {
@@ -69,9 +72,25 @@ function App() {
     }
 
     const onCreateBookSubmit = async (data) => {
+        if (!data.title || !data.genre || !data.description || !data.startingPrice || !data.endDateTime || !data.image){
+            setErrorCreate('All fields are required!')
+            return
+        }
+        if (Number(data.startingPrice) <= 0){
+            setErrorCreate('Price should be positive number!')
+            return
+        }
+        const inputDateTime = new Date(data.endDateTime)
+        const currentDateTime = new Date()
+        if (inputDateTime.getTime() <= currentDateTime.getTime()){
+            setErrorCreate('Date and time should be later than current date and time!')
+            return
+        }
+
         const result = await bookService.create(data, auth.accessToken)
         const newBook = {...result, currentPrice: result.startingPrice}
         setBooks(state => [...state, newBook])
+        setErrorCreate('')
         navigate('/catalog')
     }
 
@@ -82,7 +101,7 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout }}>
+        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, errorCreate, onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout }}>
             <div>
                 <Nav />
                 <Routes>

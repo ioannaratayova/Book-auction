@@ -29,16 +29,9 @@
     margin-top: -25px;
 }
 
-.card_datails h1,
-.card_datails h3,
 .card_datails p {
     font-size: 15px;
     margin-bottom: 10px;
-}
-
-.card_datails h1 {
-    font-size: 29px;
-    padding-bottom: 8px;
 }
 
 .card_right img {
@@ -52,8 +45,12 @@
     display: flex;
     justify-content: space-between;
     margin-top: 27px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
 }
+
 
 .PG,
 .card-species,

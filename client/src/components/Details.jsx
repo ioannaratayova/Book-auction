@@ -5,10 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as bookService from '../services/bookService';
 
 
-export const Details = ({onDeleteBook}) => {
+export const Details = ({ onDeleteBook }) => {
     const { auth } = useContext(AuthContext)
     const { bookId } = useParams()
-    const [ book, setBook ] = useState({})
+    const [book, setBook] = useState({})
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -20,33 +20,34 @@ export const Details = ({onDeleteBook}) => {
 
     const isOwner = book._ownerId === auth._id
 
-    
+
 
     return (
         <div>
             <div className="main_card">
                 <div className="card_left">
                     <div className="card_datails">
-                        <h1>Name:</h1>
-                        <h3>Starting price:</h3>
                         <div className="card_character">
+                            <p>Name:</p>
+                            <p>Starting price:</p>
                             <p className="genre">Genre:</p>
-                            
+
+                            <p className="remaining-time">Remaining time: <span className="timer">22:36:45</span> </p>
+                            <p className='current price'>Current price:</p>
+                            <p className="disc">Description:</p>
                         </div>
-                        <p className="remaining-time">Remaining time: <span className="timer">22:36:45</span> </p>
-                        <p className='current price'>Current price:</p>
-                        <p className="disc">Description:</p>
+
                         {/* If there is no registered user, do not display buttons*/}
                         <div className="social-btn">
                             {/* Only for registered user and author of the post */}
-                            <a href="#" className="edit-btn">
+                            <button className="edit-btn">
                                 Edit
-                            </a>
+                            </button>
                             <button className="del-btn" onClick={() => onDeleteBook(book)}>Delete</button>
                             {/* logged in users, who have not yet comment*/}
-                            <a href="#" className="comment-up">
+                            <button className="comment-up">
                                 Comment
-                            </a>
+                            </button>
                             {/* logged in user who has already comment*/}
 
                             <div className='bid-price'>
