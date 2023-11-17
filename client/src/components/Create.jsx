@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext.js'
 import { useForm } from '../hooks/useForm.js'
 import './Create.css'
@@ -15,7 +15,7 @@ export const Create = () => {
     const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 
 
-    const { onCreateBookSubmit, errorCreate } = useContext(AuthContext)
+    const { onCreateBookSubmit, errorCreate, setErrorCreate } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
         title: '',
         genre: '',
@@ -23,8 +23,13 @@ export const Create = () => {
         startingPrice: '',
         currentPrice: '',
         endDateTime: formattedDateTime,
-        image: ''
+        image: '',
+        lastBetBy: ''
     }, onCreateBookSubmit)
+
+    useEffect(() => {
+        setErrorCreate('')
+    }, [])
 
     return (
 

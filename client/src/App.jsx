@@ -18,7 +18,8 @@ function App() {
     const [auth, setAuth] = useState({})
     const [errorLogin, setErrorLogin] = useState('')
     const [errorRegister, setErrorRegister] = useState('')
-    const [errorCreate, setErrorCreate] = useState('')
+    const [errorCreate, setErrorCreate] = useState('') 
+    const [errorBet, setErrorBet] = useState('')
     const [books, setBooks] = useState([])
 
     useEffect(() => {
@@ -33,7 +34,6 @@ function App() {
             const result = await authService.login(data)
             if (result.accessToken) {
                 setAuth(result)
-                setErrorLogin('')
                 navigate('/catalog')
             }
             else {
@@ -47,8 +47,14 @@ function App() {
     }
 
     const onRegisterSubmit = async (data) => {
+
+        if (!data.username || !data.email || !data.password || !data.repassword) {
+            setErrorRegister('All fields are required!')
+            return
+        }
+
         const { repassword, ...registerData } = data
-        // validate data ??
+
         if (repassword != registerData.password) {
             setErrorRegister('Passwords don\'t match!')
             return
@@ -56,9 +62,12 @@ function App() {
 
         try {
             const result = await authService.register(registerData);
-            const { password, ...authData } = result
+            if (result.code !== 200) {
+                setErrorRegister(result.message);
+                return;
+            }
+            const { password, ...authData } = result;
             setAuth(authData)
-            setErrorRegister('')
             navigate('/catalog')
         }
         catch (error) {
@@ -72,25 +81,24 @@ function App() {
     }
 
     const onCreateBookSubmit = async (data) => {
-        if (!data.title || !data.genre || !data.description || !data.startingPrice || !data.endDateTime || !data.image){
+        if (!data.title || !data.genre || !data.description || !data.startingPrice || !data.endDateTime || !data.image) {
             setErrorCreate('All fields are required!')
             return
         }
-        if (Number(data.startingPrice) <= 0){
+        if (Number(data.startingPrice) <= 0) {
             setErrorCreate('Price should be positive number!')
             return
         }
         const inputDateTime = new Date(data.endDateTime)
         const currentDateTime = new Date()
-        if (inputDateTime.getTime() <= currentDateTime.getTime()){
+        if (inputDateTime.getTime() <= currentDateTime.getTime()) {
             setErrorCreate('Date and time should be later than current date and time!')
             return
         }
-
-        const result = await bookService.create(data, auth.accessToken)
-        const newBook = {...result, currentPrice: result.startingPrice}
-        setBooks(state => [...state, newBook])
-        setErrorCreate('')
+        
+        const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2) }
+        const result = await bookService.create(newBook, auth.accessToken)
+        setBooks(state => [...state, result])
         navigate('/catalog')
     }
 
@@ -100,8 +108,29 @@ function App() {
         navigate('/catalog')
     }
 
+    const onBetSubmit = async (data) => {
+        const oldBook = await bookService.getOne(data._id)
+        if (oldBook.currentPrice){
+            if (Number(data.currentPrice) <= Number(oldBook.currentPrice)){
+                setErrorBet('New price should be higher than current price!')
+                return
+            }
+        }
+        else{
+            if (Number(data.currentPrice) <= Number(oldBook.startingPrice)){
+                setErrorBet('New price should be higher than starting price!')
+                return
+            }
+        }
+        const newBook = {...data, currentPrice: Number(data.currentPrice).toFixed(2)}
+        const result = await bookService.edit(newBook._id, newBook, auth.accessToken)
+        setErrorBet('')
+    }
+
     return (
-        <AuthContext.Provider value={{ auth, errorLogin, errorRegister, errorCreate, onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout }}>
+        <AuthContext.Provider value={{ 
+            auth, errorLogin, setErrorLogin, errorRegister, setErrorRegister, errorCreate, setErrorCreate, errorBet ,setErrorBet, 
+            onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout, onBetSubmit }}>
             <div>
                 <Nav />
                 <Routes>

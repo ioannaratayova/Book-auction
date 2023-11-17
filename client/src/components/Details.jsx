@@ -3,20 +3,40 @@ import './Details.css';
 import { AuthContext } from '../contexts/AuthContext.js';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as bookService from '../services/bookService';
+import { useForm } from '../hooks/useForm'
 
 
 export const Details = ({ onDeleteBook }) => {
-    const { auth } = useContext(AuthContext)
+    const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(AuthContext)
     const { bookId } = useParams()
     const [book, setBook] = useState({})
     const navigate = useNavigate()
+    const [forceUpdate, setForceUpdate] = useState(false)
+
+    const { values, changeHandler, onSubmit, changeValues } = useForm({
+        _id: '',
+        title: '',
+        genre: '',
+        description: '',
+        startingPrice: '',
+        currentPrice: '',
+        endDateTime: '',
+        image: '',
+        lastBetBy: ''
+    }, onBetSubmit)
+
+    useEffect(() => {
+        setErrorBet('')
+    }, [])
 
     useEffect(() => {
         bookService.getOne(bookId)
             .then(result => {
                 setBook(result)
+                changeValues(result)
+                setForceUpdate(false)
             })
-    }, [bookId])
+    }, [bookId, forceUpdate])
 
     const isOwner = book._ownerId === auth._id
 
@@ -28,13 +48,14 @@ export const Details = ({ onDeleteBook }) => {
                 <div className="card_left">
                     <div className="card_datails">
                         <div className="card_character">
-                            <p>Name:</p>
-                            <p>Starting price:</p>
-                            <p className="genre">Genre:</p>
+                            <p>Name: {book.title}</p>
+                            <p>Starting price: {book.startingPrice}</p>
+                            <p className="genre">Genre: {book.genre}</p>
 
                             <p className="remaining-time">Remaining time: <span className="timer">22:36:45</span> </p>
-                            <p className='current price'>Current price:</p>
-                            <p className="disc">Description:</p>
+                            <p className='current price'>Current price: {book.currentPrice}</p>
+                            <p className='last bet'>Last bet by: {book.lastBetBy}</p>
+                            <p className="disc">Description: {book.description}</p>
                         </div>
 
                         {/* If there is no registered user, do not display buttons*/}
@@ -51,10 +72,14 @@ export const Details = ({ onDeleteBook }) => {
                             {/* logged in user who has already comment*/}
 
                             <div className='bid-price'>
-                                <input type="text" data-price_field="yes" maxLength="12"
+                                {/* <input type="text" data-price_field="yes" maxLength="12"
                                     step="0.01" max="10" className="bid-price"
-                                    placeholder="Минимум 15.00&nbsp;лв."></input>
-                                <button className="bid-btn">Наддавам</button>
+                                    placeholder="Minimum 15.00&nbsp;лв."></input> */}
+                                <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
+                                value={values.currentPrice} onChange={changeHandler} />    
+                                <button className="bid-btn" onClick={ (e) => {onSubmit(e); setForceUpdate(true)}}>Bet</button>
+                                <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
+
                             </div>
 
                         </div>

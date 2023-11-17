@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext.js'
 import { useForm } from '../hooks/useForm.js'
 import { Link } from 'react-router-dom'
@@ -7,13 +7,17 @@ import './Register.css'
 
 
 export const Register = () => {
-    const { onRegisterSubmit, errorRegister } = useContext(AuthContext)
+    const { onRegisterSubmit, errorRegister, setErrorRegister } = useContext(AuthContext)
     const { values, changeHandler, onSubmit } = useForm({
         username: '',
         email: '',
         password: '',
         repassword: ''
     }, onRegisterSubmit)
+
+    useEffect(() => {
+        setErrorRegister('')
+    }, [])
 
     return (
 
@@ -48,7 +52,7 @@ export const Register = () => {
                     </div>
 
                     <div className='input-box'>
-                        <input type="repassword" name='repassword'
+                        <input type="password" name='repassword'
                             placeholder="Repeat Password" value={values.repassword}
                             onChange={changeHandler} />
                         <i className='bx bxs-lock-alt'></i>

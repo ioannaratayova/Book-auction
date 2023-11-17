@@ -16,6 +16,10 @@ export const create = async (bookData, token) => {
     return await request.post(baseUrl, bookData, token);
 }
 
+export const edit = async (bookId, data, token) => {
+    request.put(`${baseUrl}/${bookId}`, data, token)
+}
+
 export const addReview = async (bookId, data) => {
 
 }
