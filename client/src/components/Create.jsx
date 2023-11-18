@@ -24,7 +24,8 @@ export const Create = () => {
         currentPrice: '',
         endDateTime: formattedDateTime,
         image: '',
-        lastBetBy: ''
+        lastBetBy: '',
+        owner: ''
     }, onCreateBookSubmit)
 
     useEffect(() => {

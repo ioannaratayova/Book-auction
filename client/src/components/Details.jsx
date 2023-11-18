@@ -7,11 +7,13 @@ import { useForm } from '../hooks/useForm'
 
 
 export const Details = ({ onDeleteBook }) => {
-    const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(AuthContext)
-    const { bookId } = useParams()
-    const [book, setBook] = useState({})
-    const navigate = useNavigate()
-    const [forceUpdate, setForceUpdate] = useState(false)
+    const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(AuthContext);
+    const { bookId } = useParams();
+    const [book, setBook] = useState({});
+    const navigate = useNavigate();
+    const [forceUpdate, setForceUpdate] = useState(false);
+    const [timeLeft, setTimeLeft] = useState();
+
 
     const { values, changeHandler, onSubmit, changeValues } = useForm({
         _id: '',
@@ -22,24 +24,55 @@ export const Details = ({ onDeleteBook }) => {
         currentPrice: '',
         endDateTime: '',
         image: '',
-        lastBetBy: ''
+        lastBetBy: '',
+        owner: ''
     }, onBetSubmit)
 
     useEffect(() => {
         setErrorBet('')
-    }, [])
+    }, []);
+
+    const calculateTimeLeft = (targetDate) => {
+        bookService.getOne(bookId)
+            .then(result => {
+                if (result.currentPrice !== book.currentPrice){
+                    setBook(result)
+                }
+        })
+        const now = new Date().getTime();
+        const endDate = new Date(targetDate).getTime();
+        const timeDifference = endDate - now;
+
+        if (timeDifference <= 0) {
+            return 'Auction is over.';
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        return `${days}:${hours}:${minutes}:${seconds}`;
+    };
 
     useEffect(() => {
         bookService.getOne(bookId)
             .then(result => {
                 setBook(result)
+                setTimeLeft(calculateTimeLeft(result.endDateTime))
                 changeValues(result)
                 setForceUpdate(false)
             })
     }, [bookId, forceUpdate])
 
-    const isOwner = book._ownerId === auth._id
+    useEffect(() => {
+        const timer = setInterval(() => {
+          setTimeLeft(calculateTimeLeft(book.endDateTime));
+        }, 1000);
+        return () => clearInterval(timer)
+      }, [book.endDateTime]);
 
+    const isOwner = book.owner === auth.email
 
 
     return (
@@ -52,7 +85,7 @@ export const Details = ({ onDeleteBook }) => {
                             <p>Starting price: {book.startingPrice}</p>
                             <p className="genre">Genre: {book.genre}</p>
 
-                            <p className="remaining-time">Remaining time: <span className="timer">22:36:45</span> </p>
+                            <p className="remaining-time">Remaining time: <span className="timer">{timeLeft}</span> </p>
                             <p className='current price'>Current price: {book.currentPrice}</p>
                             <p className='last bet'>Last bet by: {book.lastBetBy}</p>
                             <p className="disc">Description: {book.description}</p>
@@ -76,8 +109,8 @@ export const Details = ({ onDeleteBook }) => {
                                     step="0.01" max="10" className="bid-price"
                                     placeholder="Minimum 15.00&nbsp;лв."></input> */}
                                 <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
-                                value={values.currentPrice} onChange={changeHandler} />    
-                                <button className="bid-btn" onClick={ (e) => {onSubmit(e); setForceUpdate(true)}}>Bet</button>
+                                    value={values.currentPrice} onChange={changeHandler} />
+                                <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(true) }}>Bet</button>
                                 <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
 
                             </div>

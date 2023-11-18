@@ -25,7 +25,13 @@ function App() {
     useEffect(() => {
         bookService.getAll()
             .then(result => {
-                setBooks(result)
+                if (!result){
+                    setBooks([])
+                }
+                else{
+                    const arrayOfBooks = Object.values(result)
+                    setBooks(arrayOfBooks)
+                }
             })
     }, []);
 
@@ -62,7 +68,7 @@ function App() {
 
         try {
             const result = await authService.register(registerData);
-            if (result.code !== 200) {
+            if (result.code && result.code !== 200) {
                 setErrorRegister(result.message);
                 return;
             }
@@ -96,7 +102,7 @@ function App() {
             return
         }
         
-        const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2) }
+        const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2), owner: auth.email }
         const result = await bookService.create(newBook, auth.accessToken)
         setBooks(state => [...state, result])
         navigate('/catalog')
@@ -122,7 +128,7 @@ function App() {
                 return
             }
         }
-        const newBook = {...data, currentPrice: Number(data.currentPrice).toFixed(2)}
+        const newBook = {...data, currentPrice: Number(data.currentPrice).toFixed(2), lastBetBy: auth.email}
         const result = await bookService.edit(newBook._id, newBook, auth.accessToken)
         setErrorBet('')
     }
