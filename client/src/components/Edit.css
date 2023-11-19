@@ -48,10 +48,10 @@
 }
 
 
-.wrapper .btn-create {
+.wrapper .btn-edit {
     width: 100%;
     height: 45px;
-    background: white;
+    background: #EC8FA4;
     border: none;
     outline: none;
     border-radius: 40px;

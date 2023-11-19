@@ -10,6 +10,7 @@ import { Create } from "./components/Create.jsx";
 import { Catalog } from './components/Catalog.jsx';
 import { Details } from './components/Details.jsx';
 import { Edit } from './components/Edit';
+import { MyBooks } from './components/MyBooks.jsx';
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
 
@@ -19,17 +20,17 @@ function App() {
     const [auth, setAuth] = useState({})
     const [errorLogin, setErrorLogin] = useState('')
     const [errorRegister, setErrorRegister] = useState('')
-    const [errorCreate, setErrorCreate] = useState('') 
+    const [errorCreate, setErrorCreate] = useState('')
     const [errorBet, setErrorBet] = useState('')
     const [books, setBooks] = useState([])
 
     useEffect(() => {
         bookService.getAll()
             .then(result => {
-                if (!result){
+                if (!result) {
                     setBooks([])
                 }
-                else{
+                else {
                     const arrayOfBooks = Object.values(result)
                     setBooks(arrayOfBooks)
                 }
@@ -102,7 +103,7 @@ function App() {
             setErrorCreate('Date and time should be later than current date and time!')
             return
         }
-        
+
         const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2), owner: auth.email }
         const result = await bookService.create(newBook, auth.accessToken)
         setBooks(state => [...state, result])
@@ -117,19 +118,19 @@ function App() {
 
     const onBetSubmit = async (data) => {
         const oldBook = await bookService.getOne(data._id)
-        if (oldBook.currentPrice){
-            if (Number(data.currentPrice) <= Number(oldBook.currentPrice)){
+        if (oldBook.currentPrice) {
+            if (Number(data.currentPrice) <= Number(oldBook.currentPrice)) {
                 setErrorBet('New price should be higher than current price!')
                 return
             }
         }
-        else{
-            if (Number(data.currentPrice) <= Number(oldBook.startingPrice)){
+        else {
+            if (Number(data.currentPrice) <= Number(oldBook.startingPrice)) {
                 setErrorBet('New price should be higher than starting price!')
                 return
             }
         }
-        const newBook = {...data, currentPrice: Number(data.currentPrice).toFixed(2), lastBetBy: auth.email}
+        const newBook = { ...data, currentPrice: Number(data.currentPrice).toFixed(2), lastBetBy: auth.email }
         const result = await bookService.edit(newBook._id, newBook, auth.accessToken)
         setErrorBet('')
     }
@@ -149,7 +150,7 @@ function App() {
             setErrorCreate('Date and time should be later than current date and time!')
             return
         }
-        
+
         const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2), owner: auth.email }
         const result = await bookService.edit(data._id, newBook)
         setBooks(state => state.map(x => x._id === data._id ? result : x))
@@ -157,18 +158,19 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider value={{ 
-            auth, errorLogin, setErrorLogin, errorRegister, setErrorRegister, errorCreate, setErrorCreate, errorBet ,setErrorBet, 
-            onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout, onBetSubmit }}>
+        <AuthContext.Provider value={{
+            auth, errorLogin, setErrorLogin, errorRegister, setErrorRegister, errorCreate, setErrorCreate, errorBet, setErrorBet,
+            onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout, onBetSubmit
+        }}>
             <div>
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/catalog' element={<h1><Catalog books={books} /></h1>} />
+                    <Route path='/catalog' element={<Catalog books={books} />} />
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
-                    <Route path='/myitems' element={<h1>My items</h1>} />
+                    <Route path='/myitems' element={<MyBooks books={books} />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/logout' element={<Logout />} />

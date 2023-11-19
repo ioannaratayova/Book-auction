@@ -7,7 +7,7 @@ export const Catalog = ({books}) => {
     return (
         <section className="catalog">
             <h1>All books</h1>
-            {books.map(x => 
+            {books && books.map(x => 
                 <CatalogItem key={x._id} {...x} />
             )}
 

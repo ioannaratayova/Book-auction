@@ -102,7 +102,7 @@ export const Details = ({ onDeleteBook }) => {
                                 {auth.email === book.owner && !book.lastBetBy && (
                                     <div>
                                         <button className='del-btn'>
-                                        <Link to={`/catalog/${book._id}/edit`} >Edit</Link>
+                                        <Link to={`/catalog/${book._id}/edit`} className='link-style'>Edit</Link>
                                         </button>
                                         <button className="del-btn" onClick={() => onDeleteBook(book)}>Delete</button>
                                     </div>
@@ -112,7 +112,7 @@ export const Details = ({ onDeleteBook }) => {
                                         you can't edit or delete it!
                                     </div>
                                 )}
-                                {!auth.email === book.owner && (
+                                {!(auth.email === book.owner) && timeLeft !== 'Auction is over.' && (
                                     <div className='bid-price'>
                                         <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                                             value={values.currentPrice} onChange={changeHandler} />

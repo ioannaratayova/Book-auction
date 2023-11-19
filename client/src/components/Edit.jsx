@@ -90,7 +90,7 @@ export const Edit = ({onBookEditSubmit}) => {
                             onChange={changeHandler} />
                     </div>
 
-                    <button className='btn-create'>Edt</button>
+                    <button className='btn-edit'>Edit</button>
                     <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorCreate ? errorCreate : '\u00A0'}</p>
 
                 </form>

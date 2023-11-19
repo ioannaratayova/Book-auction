@@ -10,7 +10,7 @@
     display: flex;
     left: 55%;
     max-width: 950px;
-    background: #9CBA63;
+    background: rgba(0, 0, 0, 0.5);;
     -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
@@ -194,7 +194,7 @@ span {
     margin: 50px auto;
     display: flex;
     max-width: 950px;
-    background: #9CBA63;
+    background: rgba(0, 0, 0, 0.5);;
     -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
@@ -277,3 +277,9 @@ span {
     font-weight: bold;
     color: white;
 }
+
+.link-style {
+    text-decoration: none;
+    color: white; 
+}
+

@@ -7,11 +7,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 .container-wrapper {
     min-height: 100vh;
     background: url('../static/book-photo-home.png') no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     padding-top: 200px;
@@ -20,10 +22,7 @@
 
 .wrapper {
     width: 420px;
-    background: #EC8FA4;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(30px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, 0.5);
     color: white;
     border-radius: 10px;
     padding: 30px 40px;

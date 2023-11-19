@@ -41,42 +41,36 @@ export const Create = () => {
                     <h1 className="">Create auction</h1>
 
                     <div className='input-box'>
-                        <label>Name</label>
                         <input type="name" name='title'
                             placeholder="Name" value={values.title}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <label>Genre</label>
                         <input type="genre" name='genre'
                             placeholder="Genre" value={values.genre}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <label>Description</label>
                         <input type="description" name='description'
                             placeholder="Description" value={values.description}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <label>Starting price</label>
                         <input type="number" name='startingPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                             placeholder="Starting Price" value={values.startingPrice}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <label>Duration</label>
                         <input type="datetime-local" name='endDateTime' id="datetime"
                             placeholder="Duration" value={values.endDateTime}
                             onChange={changeHandler} />
                     </div>
 
                     <div className='input-box'>
-                        <label>Image</label>
                         <input type="img" name='image'
                             placeholder="Image URL" value={values.image}
                             onChange={changeHandler} />
