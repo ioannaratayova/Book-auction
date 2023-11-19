@@ -20,8 +20,9 @@ export const edit = async (bookId, data, token) => {
     request.put(`${baseUrl}/${bookId}`, data, token)
 }
 
-export const addReview = async (bookId, data) => {
-
+export const addComment = async (bookId, data) => {
+    const result = await request.post(`${baseUrl}/${bookId}/comments`, data)
+    return result;
 }
 
 export const deleteBook = async (bookId, token) => {

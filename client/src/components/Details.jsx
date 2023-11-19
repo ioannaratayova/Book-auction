@@ -13,6 +13,7 @@ export const Details = ({ onDeleteBook }) => {
     const navigate = useNavigate();
     const [forceUpdate, setForceUpdate] = useState(false);
     const [timeLeft, setTimeLeft] = useState();
+    const [comment, setComment] = useState();
 
 
     const { values, changeHandler, onSubmit, changeValues } = useForm({
@@ -72,8 +73,13 @@ export const Details = ({ onDeleteBook }) => {
         return () => clearInterval(timer)
       }, [book.endDateTime]);
 
-    const isOwner = book.owner === auth.email
-
+    const onCommentSubmit = async (e) => {
+        e.preventDefault();
+        const bookCommentEmail = auth.email
+        const result = await bookService.addComment(bookId, { bookCommentEmail, comment})
+        setBook(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }))
+        setComment('')
+    }
 
     return (
         <div>
@@ -127,23 +133,32 @@ export const Details = ({ onDeleteBook }) => {
 
             <div className="comment-info">
                 <div className="card_left">
-                    <div className="card_datails">
-                        <h1>Comments</h1>
-                        <div className="card_comment">
-                            {/* Show the rating of votes, if there are no votes yet, the number must be 0. */}
-                            <p className="PV">Total rating of comments: </p>
-                        </div>
-                        {/* logged in users, who have not yet comment*/}
-                        <button className="comment-up">
-                                Comment
-                            </button>
-                        {/* If there are already people who have cast their vote for the post, separate their emails with a comma and a space ", " */}
-                        <p className="disc">People who commented for the post - </p>
-                        {/* If not display: */}
-                        <p className="disc">
-                            People who commented for the post - No one has commented yet.
-                        </p>
+                    
+                    {auth.email && (
+                        <article className="create-comment">
+                            <label>Add new comment:</label>
+                            <form className="form" onSubmit={onCommentSubmit}>
+                                <textarea name="comment" placeholder="Comment......" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                                <input className="btn submit" type="submit" value="Add Comment" />
+                            </form>
+                        </article>
+                    )}
+                    
+                    <div className="details-comments">
+                        <h2>Comments:</h2>
+                        <ul>
+                            {book.comments && Object.values(book.comments).reverse().map(x => (
+                                <li key={x._id} className="comment">
+                                    <p>{x.bookCommentEmail}: {x.comment}</p>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {!book.comments && (
+                            <p className="no-comment">No comments.</p>
+                        )}
                     </div>
+
                 </div>
             </div>
         </div>
