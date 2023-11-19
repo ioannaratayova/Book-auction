@@ -9,6 +9,7 @@ import { Register } from './components/Register.jsx';
 import { Create } from "./components/Create.jsx";
 import { Catalog } from './components/Catalog.jsx';
 import { Details } from './components/Details.jsx';
+import { Edit } from './components/Edit';
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
 
@@ -133,6 +134,28 @@ function App() {
         setErrorBet('')
     }
 
+    const onBookEditSubmit = async (data) => {
+        if (!data.title || !data.genre || !data.description || !data.startingPrice || !data.endDateTime || !data.image) {
+            setErrorCreate('All fields are required!')
+            return
+        }
+        if (Number(data.startingPrice) <= 0) {
+            setErrorCreate('Price should be positive number!')
+            return
+        }
+        const inputDateTime = new Date(data.endDateTime)
+        const currentDateTime = new Date()
+        if (inputDateTime.getTime() <= currentDateTime.getTime()) {
+            setErrorCreate('Date and time should be later than current date and time!')
+            return
+        }
+        
+        const newBook = { ...data, startingPrice: Number(data.startingPrice).toFixed(2), owner: auth.email }
+        const result = await bookService.edit(data._id, newBook)
+        setBooks(state => state.map(x => x._id === data._id ? result : x))
+        navigate(`/catalog/${data._id}`)
+    }
+
     return (
         <AuthContext.Provider value={{ 
             auth, errorLogin, setErrorLogin, errorRegister, setErrorRegister, errorCreate, setErrorCreate, errorBet ,setErrorBet, 
@@ -143,6 +166,7 @@ function App() {
                     <Route path='/' element={<Home />} />
                     <Route path='/catalog' element={<h1><Catalog books={books} /></h1>} />
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
+                    <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
                     <Route path='/myitems' element={<h1>My items</h1>} />
                     <Route path='/login' element={<Login />} />
