@@ -10,6 +10,10 @@ body {
   background-attachment: fixed;
 }
 
+.no-books {
+  font-size: xx-large;
+}
+
 .catalog {
   max-width: 100%;
   text-align: center;

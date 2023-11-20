@@ -1,4 +1,3 @@
-import bookPhoto from '../static/book-photo-home.png'
 import './Home.css'
 
 
@@ -25,7 +24,7 @@ export const Home = () => {
                                             <p>
                                                 Here you can buy your dream book. 
                                             </p>
-                                            <a href="">Contact Us</a>
+                                            <a href="/contact">Contact us</a>
                                         </div>
                                     </div>
                                     <div className="col-md-5 ">

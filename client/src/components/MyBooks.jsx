@@ -21,13 +21,13 @@ export const MyBooks = ({books}) => {
     
     return (
         <section className="catalog">
-            <h1>All books</h1>
+            <h1>My books</h1>
             {wonBooks && wonBooks.map(x => 
                 <CatalogItem key={x._id} {...x} />
             )}
 
             {wonBooks.length === 0 && (
-                <h3>No books yet!</h3>
+                <h3 className='no-books'>No books yet!</h3>
             )}
         </section>
     )

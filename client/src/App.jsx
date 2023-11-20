@@ -11,6 +11,8 @@ import { Catalog } from './components/Catalog.jsx';
 import { Details } from './components/Details.jsx';
 import { Edit } from './components/Edit';
 import { MyBooks } from './components/MyBooks.jsx';
+import { ContactUs } from './components/ContactUs.jsx';
+
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
 
@@ -174,6 +176,7 @@ function App() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/logout' element={<Logout />} />
+                    <Route path='/contact' element={<ContactUs />} />
                 </Routes>
             </div>
         </AuthContext.Provider>

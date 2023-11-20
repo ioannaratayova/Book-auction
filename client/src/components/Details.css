@@ -169,9 +169,7 @@ p {
 
 span {
     font-size: 15px;
-    font-weight: bold;
     color: #999;
-    text-transform: uppercase;
     letter-spacing: .05em;
     margin: 2em 0 0 0;
 }
@@ -199,17 +197,8 @@ span {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
-.card_comment {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    margin-top: 6px;
-    margin-left: 2em;
-    margin-bottom: 25px;
+.no-edit {
+    color: yellowgreen;
 }
 
 .PV {
@@ -283,3 +272,77 @@ span {
     color: white; 
 }
 
+
+/* comments */
+
+/* Add styles for the comments section */
+.comment-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.details-comments {
+    flex: 1;
+}
+
+.details-comments h2 {
+    font-size: 24px;
+    color: #fff;
+    margin: 0 30px;
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment {
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+}
+
+.comment p {
+    margin: 0 23px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.no-comment {
+    font-size: 16px;
+    color: #fff;
+}
+
+.create-comment {
+    margin-right: 20px;
+}
+
+.create-comment label {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.create-comment textarea {
+    width: 68%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.create-comment .btn.submit {
+    background-color: #EC8FA4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-comment .btn.submit:hover {
+    background-color: #C27779;
+}

@@ -1,0 +1,55 @@
+
+
+.contact-container {
+    position: relative;
+    background: url('../static/book-photo-home.png') no-repeat center center fixed;
+    background-size: cover;
+    padding: 250px;
+    overflow: hidden;
+}
+
+.contact-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 1200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+}
+
+
+.contact-info h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.map-container {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+}
+
+
+.google-map-marker {
+    width: 30px;
+    height: 30px;
+    background-color: #EC8FA4;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transform: translate(-50%, -50%);
+}
+
+
+.contact-info h1  {
+    color: white;
+}

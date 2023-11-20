@@ -36,10 +36,10 @@ export const Details = ({ onDeleteBook }) => {
     const calculateTimeLeft = (targetDate) => {
         bookService.getOne(bookId)
             .then(result => {
-                if (result.currentPrice !== book.currentPrice){
+                if (result.currentPrice !== book.currentPrice) {
                     setBook(result)
                 }
-        })
+            })
         const now = new Date().getTime();
         const endDate = new Date(targetDate).getTime();
         const timeDifference = endDate - now;
@@ -53,7 +53,7 @@ export const Details = ({ onDeleteBook }) => {
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-        return `${days}:${hours}:${minutes}:${seconds}`;
+        return `${days} d : ${hours} h : ${minutes} m : ${seconds} s`;
     };
 
     useEffect(() => {
@@ -68,15 +68,15 @@ export const Details = ({ onDeleteBook }) => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-          setTimeLeft(calculateTimeLeft(book.endDateTime));
+            setTimeLeft(calculateTimeLeft(book.endDateTime));
         }, 1000);
         return () => clearInterval(timer)
-      }, [book.endDateTime]);
+    }, [book.endDateTime]);
 
     const onCommentSubmit = async (e) => {
         e.preventDefault();
         const bookCommentEmail = auth.email
-        const result = await bookService.addComment(bookId, { bookCommentEmail, comment})
+        const result = await bookService.addComment(bookId, { bookCommentEmail, comment })
         setBook(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }))
         setComment('')
     }
@@ -87,14 +87,14 @@ export const Details = ({ onDeleteBook }) => {
                 <div className="card_left">
                     <div className="card_datails">
                         <div className="card_character">
-                            <p>Name: {book.title}</p>
-                            <p>Starting price: {book.startingPrice}</p>
-                            <p className="genre">Genre: {book.genre}</p>
+                            <p> <b>Name:</b> {book.title}</p>
+                            <p> <b>Starting price:</b> {book.startingPrice}</p>
+                            <p className="genre"> <b>Genre:</b> {book.genre}</p>
 
-                            <p className="remaining-time">Remaining time: <span className="timer">{timeLeft}</span> </p>
-                            <p className='current price'>Current price: {book.currentPrice}</p>
-                            <p className='last bet'>Last bet by: {book.lastBetBy}</p>
-                            <p className="disc">Description: {book.description}</p>
+                            <p className="remaining-time"> <b>Remaining time:</b> <span className="timer">{timeLeft}</span> </p>
+                            <p className='current price'> <b>Current price:</b> {book.currentPrice}</p>
+                            <p className='last bet'> <b>Last bet by:</b> {book.lastBetBy}</p>
+                            <p className="disc"> <b>Description:</b> {book.description}</p>
                         </div>
 
                         {auth.accessToken && (
@@ -102,14 +102,15 @@ export const Details = ({ onDeleteBook }) => {
                                 {auth.email === book.owner && !book.lastBetBy && (
                                     <div>
                                         <button className='del-btn'>
-                                        <Link to={`/catalog/${book._id}/edit`} className='link-style'>Edit</Link>
+                                            <Link to={`/catalog/${book._id}/edit`} className='link-style'>Edit</Link>
                                         </button>
                                         <button className="del-btn" onClick={() => onDeleteBook(book)}>Delete</button>
                                     </div>
                                 )}
                                 {auth.email === book.owner && book.lastBetBy && (
-                                    <div>Oops! You are the owner of the book, but someone has already bet on this book so 
-                                        you can't edit or delete it!
+                                    <div className='no-edit' >
+                                        <b>Oops! You are the owner of the book, but someone has already bet on this book so
+                                            you can't edit or delete it!</b>
                                     </div>
                                 )}
                                 {!(auth.email === book.owner) && timeLeft !== 'Auction is over.' && (
@@ -117,12 +118,12 @@ export const Details = ({ onDeleteBook }) => {
                                         <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                                             value={values.currentPrice} onChange={changeHandler} />
                                         <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(true) }}>Bet</button>
-                                    <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
-                                </div>
+                                        <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
+                                    </div>
                                 )}
                             </div>
                         )}
-                        
+
                     </div>
                 </div>
                 <div className="card_right">
@@ -133,24 +134,24 @@ export const Details = ({ onDeleteBook }) => {
 
             <div className="comment-info">
                 <div className="card_left">
-                    
+
                     {auth.email && (
                         <article className="create-comment">
-                            <label>Add new comment:</label>
+                            <label> <b>Add new comment:</b> </label>
                             <form className="form" onSubmit={onCommentSubmit}>
                                 <textarea name="comment" placeholder="Comment......" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
                                 <input className="btn submit" type="submit" value="Add Comment" />
                             </form>
                         </article>
                     )}
-                    
+
                     <div className="details-comments">
                         <h2>Comments:</h2>
                         <ul>
                             {book.comments && Object.values(book.comments).reverse().map(x => (
-                                <li key={x._id} className="comment">
-                                    <p>{x.bookCommentEmail}: {x.comment}</p>
-                                </li>
+                                <div key={x._id} className="comment">
+                                    <p> <b>{x.bookCommentEmail}:</b> {x.comment}</p>
+                                </div>
                             ))}
                         </ul>
 

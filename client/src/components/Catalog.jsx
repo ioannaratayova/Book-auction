@@ -12,7 +12,7 @@ export const Catalog = ({books}) => {
             )}
 
             {books.length === 0 && (
-                <h3>No books yet!</h3>
+                <h3 className='no-books'>No books yet!</h3>
             )}
         </section>
     )
