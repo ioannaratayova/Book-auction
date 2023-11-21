@@ -40,7 +40,7 @@ export const Details = ({ onDeleteBook }) => {
                 if (result.currentPrice !== book.currentPrice) {
                     setBook(result)
                 }
-                if (_.isEqual(result.comments, book.comments)){
+                if (!_.isEqual(result.comments, book.comments)){
                     setForceUpdate(true)
                 }
                 
