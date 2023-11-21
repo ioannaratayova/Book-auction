@@ -25,6 +25,7 @@ function App() {
     const [errorCreate, setErrorCreate] = useState('')
     const [errorBet, setErrorBet] = useState('')
     const [books, setBooks] = useState([])
+    const [triggerGetAll, setTriggerGetAll] = useState(false)
 
     useEffect(() => {
         bookService.getAll()
@@ -36,8 +37,9 @@ function App() {
                     const arrayOfBooks = Object.values(result)
                     setBooks(arrayOfBooks)
                 }
+                setTriggerGetAll(false)
             })
-    }, []);
+    }, [triggerGetAll]);
 
     const onLoginSubmit = async (data) => {
         try {
@@ -168,11 +170,11 @@ function App() {
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/catalog' element={<Catalog books={books} />} />
+                    <Route path='/catalog' element={<Catalog books={books} setTriggerGetAll={setTriggerGetAll} />} />
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
-                    <Route path='/myitems' element={<MyBooks books={books} />} />
+                    <Route path='/myitems' element={<MyBooks books={books} setTriggerGetAll={setTriggerGetAll} />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/logout' element={<Logout />} />

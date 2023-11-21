@@ -3,7 +3,8 @@ import './Details.css';
 import { AuthContext } from '../contexts/AuthContext.js';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import * as bookService from '../services/bookService';
-import { useForm } from '../hooks/useForm'
+import { useForm } from '../hooks/useForm';
+import _ from 'lodash';
 
 
 export const Details = ({ onDeleteBook }) => {
@@ -39,6 +40,10 @@ export const Details = ({ onDeleteBook }) => {
                 if (result.currentPrice !== book.currentPrice) {
                     setBook(result)
                 }
+                if (_.isEqual(result.comments, book.comments)){
+                    setForceUpdate(true)
+                }
+                
             })
         const now = new Date().getTime();
         const endDate = new Date(targetDate).getTime();

@@ -4,7 +4,8 @@ import { AuthContext } from '../contexts/AuthContext.js';
 import { useContext } from 'react';
 
 
-export const MyBooks = ({books}) => {
+export const MyBooks = ({books, setTriggerGetAll}) => {
+    setTriggerGetAll(true)
     const { auth } = useContext(AuthContext);
     const isExpired = (book) => {
         const now = new Date().getTime();
