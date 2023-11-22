@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom'
 import { useContext, useEffect } from 'react'
-import { AuthContext } from '../contexts/AuthContext.js'
+import { Context } from '../../contexts/Context.js'
 
 
 export const Logout = () => {
-    const { onLogout } = useContext(AuthContext)
+    const { onLogout } = useContext(Context)
     useEffect( () => {
         onLogout();
     }, [onLogout]);

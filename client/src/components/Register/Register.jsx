@@ -1,13 +1,13 @@
 import { useContext, useEffect } from 'react'
-import { AuthContext } from '../contexts/AuthContext.js'
-import { useForm } from '../hooks/useForm.js'
+import { Context } from '../../contexts/Context.js'
+import { useForm } from '../../hooks/useForm.js'
 import { Link } from 'react-router-dom'
 import './Register.css'
 
 
 
 export const Register = () => {
-    const { onRegisterSubmit, errorRegister, setErrorRegister } = useContext(AuthContext)
+    const { onRegisterSubmit, errorRegister, setErrorRegister } = useContext(Context)
     const { values, changeHandler, onSubmit } = useForm({
         username: '',
         email: '',

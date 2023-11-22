@@ -1,6 +1,6 @@
-import './Catalog.css'
-import { CatalogItem } from './CatalogItem.jsx'
-import { AuthContext } from '../contexts/AuthContext.js';
+import '../Catalog/Catalog.css'
+import { CatalogItem } from '../Catalog/CatalogItem/CatalogItem.jsx'
+import { Context } from '../../contexts/Context.js';
 import { useContext, useEffect } from 'react';
 
 
@@ -8,7 +8,7 @@ export const MyBooks = ({books, setTriggerGetAll}) => {
     useEffect(() => {
         setTriggerGetAll(true)
     }, [])
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(Context);
     const isExpired = (book) => {
         const now = new Date().getTime();
         const bookTime = new Date(book.endDateTime).getTime();

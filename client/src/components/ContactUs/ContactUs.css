@@ -2,7 +2,7 @@
 
 .contact-container {
     position: relative;
-    background: url('../static/book-photo-home.png') no-repeat center center fixed;
+    background: url('../../static/book-photo-home.png') no-repeat center center fixed;
     background-size: cover;
     padding: 250px;
     overflow: hidden;

@@ -1,7 +1,6 @@
-// ContactUs.jsx
-
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import './ContactUs.css';
+
 
 const containerStyle = {
     width: '400px',

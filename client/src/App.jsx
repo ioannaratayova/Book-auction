@@ -1,17 +1,17 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Home } from './components/Home'
-import { Nav } from './components/Nav'
-import { Login } from './components/Login'
-import { Logout } from './components/Logout'
-import { AuthContext } from './contexts/AuthContext.js';
+import { Home } from './components/Home/Home.jsx'
+import { Nav } from './components/Nav/Nav.jsx'
+import { Login } from './components/Login/Login.jsx'
+import { Logout } from './components/Logout/Logout.jsx'
+import { Context } from './contexts/Context.js';
 import { useEffect, useState } from 'react';
-import { Register } from './components/Register.jsx';
-import { Create } from "./components/Create.jsx";
-import { Catalog } from './components/Catalog.jsx';
-import { Details } from './components/Details.jsx';
-import { Edit } from './components/Edit';
-import { MyBooks } from './components/MyBooks.jsx';
-import { ContactUs } from './components/ContactUs.jsx';
+import { Register } from './components/Register/Register.jsx';
+import { Create } from "./components/Create/Create.jsx";
+import { Catalog } from './components/Catalog/Catalog.jsx';
+import { Details } from './components/Details/Details.jsx';
+import { Edit } from './components/Edit/Edit.jsx';
+import { MyBooks } from './components/MyBooks/MyBooks.jsx';
+import { ContactUs } from './components/ContactUs/ContactUs.jsx';
 
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
@@ -162,7 +162,7 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider value={{
+        <Context.Provider value={{
             auth, errorLogin, setErrorLogin, errorRegister, setErrorRegister, errorCreate, setErrorCreate, errorBet, setErrorBet,
             onLoginSubmit, onRegisterSubmit, onCreateBookSubmit, onLogout, onBetSubmit
         }}>
@@ -181,7 +181,7 @@ function App() {
                     <Route path='/contact' element={<ContactUs />} />
                 </Routes>
             </div>
-        </AuthContext.Provider>
+        </Context.Provider>
     )
 }
 

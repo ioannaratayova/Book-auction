@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import './Details.css';
-import { AuthContext } from '../contexts/AuthContext.js';
+import { Context } from '../../contexts/Context.js';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import * as bookService from '../services/bookService';
-import { useForm } from '../hooks/useForm';
+import * as bookService from '../../services/bookService.js';
+import { useForm } from '../../hooks/useForm.js';
 import _ from 'lodash';
 
 
 export const Details = ({ onDeleteBook }) => {
-    const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(AuthContext);
+    const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(Context);
     const { bookId } = useParams();
     const [book, setBook] = useState({});
     const navigate = useNavigate();

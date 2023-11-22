@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import './Catalog.css'
-import { CatalogItem } from './CatalogItem.jsx'
+import { CatalogItem } from './CatalogItem/CatalogItem.jsx'
 
 
 

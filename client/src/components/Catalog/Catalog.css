@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background: url('../static/book-photo-home.png') center/cover no-repeat;
+  background: url('../../static/book-photo-home.png') center/cover no-repeat;
   background-attachment: fixed;
 }
 

@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { AuthContext } from '../contexts/AuthContext.js'
+import { Context } from '../../contexts/Context.js'
 import { useContext } from 'react'
 import './Nav.css';
 
 
 export const Nav = () => {
-    const { auth } = useContext(AuthContext)
+    const { auth } = useContext(Context)
     return (
         <header className="navbar">
             <ul>
