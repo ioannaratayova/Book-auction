@@ -12,6 +12,7 @@ import { Details } from './components/Details/Details.jsx';
 import { Edit } from './components/Edit/Edit.jsx';
 import { MyBooks } from './components/MyBooks/MyBooks.jsx';
 import { ContactUs } from './components/ContactUs/ContactUs.jsx';
+import { Footer } from './components/Footer/Footer.jsx'
 
 import * as authService from './services/authService'
 import * as bookService from './services/bookService'
@@ -174,12 +175,13 @@ function App() {
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
-                    <Route path='/myitems' element={<MyBooks books={books} setTriggerGetAll={setTriggerGetAll} />} />
+                    <Route path='/mybooks' element={<MyBooks books={books} setTriggerGetAll={setTriggerGetAll} />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/logout' element={<Logout />} />
                     <Route path='/contact' element={<ContactUs />} />
                 </Routes>
+                <Footer />
             </div>
         </Context.Provider>
     )

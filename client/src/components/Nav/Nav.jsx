@@ -15,7 +15,7 @@ export const Nav = () => {
                 {auth.accessToken && (
                     <div className='navbar-div'>
                         <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/create'}>Create auction</NavLink></li>
-                        <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/myitems'}>My books</NavLink></li>
+                        <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/mybooks'}>My books</NavLink></li>
                         <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/logout'}>Logout</NavLink></li>
                         <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/contact'}>Contact us</NavLink></li>
                         <p>{auth.email}</p>

@@ -80,6 +80,9 @@ export const Details = ({ onDeleteBook }) => {
 
     const onCommentSubmit = async (e) => {
         e.preventDefault();
+        if (!comment){
+            return
+        }
         const bookCommentEmail = auth.email
         const result = await bookService.addComment(bookId, { bookCommentEmail, comment })
         setBook(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }))

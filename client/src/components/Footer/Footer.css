@@ -1,0 +1,17 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: #EC8FA4;
+    color: white;
+}
+
+.details-footer {
+    display: flex;
+    justify-content: center;
+    background-color: #EC8FA4;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+}

@@ -1,10 +1,10 @@
-import '../Catalog/Catalog.css'
-import { CatalogItem } from '../Catalog/CatalogItem/CatalogItem.jsx'
+import '../Catalog/Catalog.css';
+import { CatalogItem } from '../Catalog/CatalogItem/CatalogItem.jsx';
 import { Context } from '../../contexts/Context.js';
 import { useContext, useEffect } from 'react';
 
 
-export const MyBooks = ({books, setTriggerGetAll}) => {
+export const MyBooks = ({ books, setTriggerGetAll }) => {
     useEffect(() => {
         setTriggerGetAll(true)
     }, [])
@@ -21,11 +21,12 @@ export const MyBooks = ({books, setTriggerGetAll}) => {
         }
     }
     const wonBooks = books.filter((book) => book.lastBetBy === auth.email && isExpired(book));
-    
+
     return (
+
         <section className="catalog">
             <h1>My books</h1>
-            {wonBooks && wonBooks.map(x => 
+            {wonBooks && wonBooks.map(x =>
                 <CatalogItem key={x._id} {...x} />
             )}
 
@@ -33,5 +34,6 @@ export const MyBooks = ({books, setTriggerGetAll}) => {
                 <h3 className='no-books'>No books yet!</h3>
             )}
         </section>
+
     )
 }
