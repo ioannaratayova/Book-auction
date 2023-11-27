@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { Context } from '../../contexts/Context.js'
 import { useContext } from 'react'
+import logo from '../../static/logo-book.png'
 import './Nav.css';
 
 
@@ -8,6 +9,7 @@ export const Nav = () => {
     const { auth } = useContext(Context)
     return (
         <header className="navbar">
+            <img src={logo} alt="Logo" className="logo" />
             <ul>
                 <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/'}>Home</NavLink></li>
                 <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/catalog'}>Catalog</NavLink></li>
