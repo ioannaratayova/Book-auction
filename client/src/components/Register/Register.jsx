@@ -27,7 +27,7 @@ export const Register = () => {
                     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
                     rel="stylesheet"
                 />
-                <form method='POST' onSubmit={onSubmit}>
+                <form onSubmit={onSubmit}>
                     <h1 className="">Register</h1>
 
                     <div className='input-box'>

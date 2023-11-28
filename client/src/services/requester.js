@@ -2,12 +2,12 @@ const request = async (method, url, data, token) => {
     const options = {};
 
     if (method !== 'GET') {
-        options.method = method
+        options.method = method;
         if (data) {
             options.headers = {
                 'content-type': 'application/json',
             };
-            options.body = JSON.stringify(data)
+            options.body = JSON.stringify(data);
         }
     }
     if (token){

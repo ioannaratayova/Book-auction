@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
-import './Catalog.css'
 import { CatalogItem } from './CatalogItem/CatalogItem.jsx'
+import './Catalog.css'
 
 
 
-export const Catalog = ({books, setTriggerGetAll}) => {
+
+export const Catalog = ({books, triggerGetAll, setTriggerGetAll}) => {
     useEffect(() => {
-        setTriggerGetAll(true)
+        setTriggerGetAll(!triggerGetAll)
     }, [])
     return (
         <section className="catalog">

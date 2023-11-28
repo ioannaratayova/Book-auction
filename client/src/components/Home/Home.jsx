@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import './Home.css'
 
 
@@ -5,7 +6,7 @@ export const Home = () => {
     return (
         <section className="slider_section">
             <div className="slider_container">
-                
+
                 <div
                     id="carouselExampleIndicators"
                     className="carousel slide"
@@ -22,9 +23,9 @@ export const Home = () => {
                                                 Auction
                                             </h1>
                                             <p>
-                                                Here you can buy your dream book. 
+                                                Here you can buy your dream book.
                                             </p>
-                                            <a href="/contact">Contact us</a>
+                                            <p><NavLink to={'/contact'}>Contact us</NavLink></p>
                                         </div>
                                     </div>
                                     <div className="col-md-5 ">
@@ -32,7 +33,7 @@ export const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

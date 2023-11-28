@@ -35,10 +35,9 @@ function App() {
                     setBooks([])
                 }
                 else {
-                    const arrayOfBooks = Object.values(result)
-                    setBooks(arrayOfBooks)
+                    const arrayOfBooks = Object.values(result);
+                    setBooks(arrayOfBooks);
                 }
-                setTriggerGetAll(false)
             })
     }, [triggerGetAll]);
 
@@ -171,7 +170,7 @@ function App() {
                 <Nav />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/catalog' element={<Catalog books={books} setTriggerGetAll={setTriggerGetAll} />} />
+                    <Route path='/catalog' element={<Catalog books={books} triggerGetAll={triggerGetAll} setTriggerGetAll={setTriggerGetAll} />} />
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
