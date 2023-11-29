@@ -29,6 +29,7 @@ export const Create = () => {
         <div className='container-wrapper'>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <div className='wrapper'>
+                
                 <form onSubmit={onSubmit}>
                     <h1 className="">Create auction</h1>
 
