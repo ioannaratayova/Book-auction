@@ -8,8 +8,8 @@ const containerStyle = {
 };
 
 const center = {
-    lat: 123.456, // Add the latitude of your location
-    lng: -12.345, // Add the longitude of your location
+    lat: 42.67,
+    lng: 23.34,
 };
 
 export const ContactUs = () => {
@@ -30,8 +30,8 @@ export const ContactUs = () => {
                 </div>
 
                 <div className="map-container">
-                    <LoadScript googleMapsApiKey='your_key'>
-                        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
+                    <LoadScript googleMapsApiKey='API_KEY'>
+                        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
                             <Marker position={center} />
                         </GoogleMap>
                     </LoadScript>

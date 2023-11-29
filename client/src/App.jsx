@@ -115,9 +115,9 @@ function App() {
     }
 
     const onDeleteBook = async (book) => {
-        await bookService.deleteBook(book._id, auth.accessToken)
-        setBooks(state => state.filter(x => x._id !== book._id))
-        navigate('/catalog')
+        await bookService.deleteBook(book._id, auth.accessToken);
+        setBooks(state => state.filter(x => x._id !== book._id));
+        navigate('/catalog');
     }
 
     const onBetSubmit = async (data) => {

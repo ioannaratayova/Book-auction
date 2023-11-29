@@ -39,10 +39,10 @@ export const Details = ({ onDeleteBook }) => {
                 if (result.currentPrice !== book.currentPrice) {
                     setBook(result)
                 }
-                if (!_.isEqual(result.comments, book.comments)){
+                if (!_.isEqual(result.comments, book.comments)) {
                     setForceUpdate(!forceUpdate)
                 }
-                
+
             })
         const now = new Date().getTime();
         const endDate = new Date(targetDate).getTime();
@@ -78,7 +78,7 @@ export const Details = ({ onDeleteBook }) => {
 
     const onCommentSubmit = async (e) => {
         e.preventDefault();
-        if (!comment){
+        if (!comment) {
             return
         }
         const bookCommentEmail = auth.email
@@ -123,6 +123,7 @@ export const Details = ({ onDeleteBook }) => {
                                     <div className='bid-price'>
                                         <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                                             value={values.currentPrice} onChange={changeHandler} />
+
                                         <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(!forceUpdate) }}>Bet</button>
                                         <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
                                     </div>
