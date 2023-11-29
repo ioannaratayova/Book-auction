@@ -101,8 +101,8 @@ function App() {
             setErrorCreate('Price should be positive number!')
             return
         }
-        const inputDateTime = new Date(data.endDateTime)
-        const currentDateTime = new Date()
+        const inputDateTime = new Date(data.endDateTime);
+        const currentDateTime = new Date();
         if (inputDateTime.getTime() <= currentDateTime.getTime()) {
             setErrorCreate('Date and time should be later than current date and time!')
             return

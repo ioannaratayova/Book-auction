@@ -6,7 +6,9 @@ export const Footer = () => {
     const location = useLocation();
 
 
-    const isDetailsPage = location.pathname.startsWith('/catalog/') || location.pathname.startsWith('/mybooks');
+    const isDetailsPage = location.pathname.startsWith('/catalog/') ||
+        location.pathname.startsWith('/mybooks') ||
+        location.pathname.startsWith('/catalog');
 
     return (
         <div className={`footer ${isDetailsPage ? 'details-footer' : ''}`}>

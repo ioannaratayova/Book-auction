@@ -11,7 +11,6 @@ export const Details = ({ onDeleteBook }) => {
     const { auth, onBetSubmit, errorBet, setErrorBet } = useContext(Context);
     const { bookId } = useParams();
     const [book, setBook] = useState({});
-    const navigate = useNavigate();
     const [forceUpdate, setForceUpdate] = useState(false);
     const [timeLeft, setTimeLeft] = useState();
     const [comment, setComment] = useState();
@@ -41,7 +40,7 @@ export const Details = ({ onDeleteBook }) => {
                     setBook(result)
                 }
                 if (!_.isEqual(result.comments, book.comments)){
-                    setForceUpdate(true)
+                    setForceUpdate(!forceUpdate)
                 }
                 
             })
@@ -67,7 +66,6 @@ export const Details = ({ onDeleteBook }) => {
                 setBook(result)
                 setTimeLeft(calculateTimeLeft(result.endDateTime))
                 changeValues(result)
-                setForceUpdate(false)
             })
     }, [bookId, forceUpdate])
 
@@ -125,7 +123,7 @@ export const Details = ({ onDeleteBook }) => {
                                     <div className='bid-price'>
                                         <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                                             value={values.currentPrice} onChange={changeHandler} />
-                                        <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(true) }}>Bet</button>
+                                        <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(!forceUpdate) }}>Bet</button>
                                         <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
                                     </div>
                                 )}

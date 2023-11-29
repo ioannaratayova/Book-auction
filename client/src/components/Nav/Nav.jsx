@@ -31,11 +31,6 @@ export const Nav = () => {
                         <li><NavLink style={({ isActive }) => ({ textDecoration: 'none', color: isActive ? '#000000' : '#FFFFFF' })} to={'/contact'}>Contact us</NavLink></li>
                     </div>
                 )}
-
-
-
-
-
             </ul>
         </header>
     )
