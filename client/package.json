@@ -9,12 +9,7 @@
       "@babel/preset-react"
     ]
   },
-  "jest": {
-    "testEnvironment": "jest-environment-jsdom",
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
-  },
+  
   "scripts": {
     "dev": "vite",
     "test": "jest",
