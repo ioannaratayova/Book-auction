@@ -36,13 +36,9 @@ export const Details = ({ onDeleteBook }) => {
     const calculateTimeLeft = (targetDate) => {
         bookService.getOne(bookId)
             .then(result => {
-                if (result.currentPrice !== book.currentPrice) {
+                if (result.currentPrice !== book.currentPrice || !_.isEqual(result.comments, book.comments)) {
                     setBook(result)
                 }
-                if (!_.isEqual(result.comments, book.comments)) {
-                    setForceUpdate(!forceUpdate)
-                }
-
             })
         const now = new Date().getTime();
         const endDate = new Date(targetDate).getTime();
@@ -85,6 +81,7 @@ export const Details = ({ onDeleteBook }) => {
         const result = await bookService.addComment(bookId, { bookCommentEmail, comment })
         setBook(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }))
         setComment('')
+        setForceUpdate(!forceUpdate)
     }
 
     return (
@@ -123,7 +120,6 @@ export const Details = ({ onDeleteBook }) => {
                                     <div className='bid-price'>
                                         <input type="number" name='currentPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
                                             value={values.currentPrice} onChange={changeHandler} />
-
                                         <button className="bid-btn" onClick={(e) => { onSubmit(e); setForceUpdate(!forceUpdate) }}>Bet</button>
                                         <p style={{ color: 'red', fontSize: '16px', textAlign: 'center', paddingTop: '10px' }}>{errorBet ? errorBet : '\u00A0'}</p>
                                     </div>
