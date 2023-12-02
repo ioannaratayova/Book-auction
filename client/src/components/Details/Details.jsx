@@ -61,7 +61,7 @@ export const Details = ({ onDeleteBook }) => {
             .then(result => {
                 setBook(result)
                 setTimeLeft(calculateTimeLeft(result.endDateTime))
-                changeValues(result)
+                changeValues({...result, currentPrice: ''})
             })
     }, [bookId, forceUpdate])
 
