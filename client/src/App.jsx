@@ -65,7 +65,7 @@ function App() {
             return
         }
 
-        const { repassword, ...registerData } = data
+        const { repassword, ...registerData } = data;
 
         if (repassword != registerData.password) {
             setErrorRegister('Passwords don\'t match!')
@@ -97,12 +97,15 @@ function App() {
             setErrorCreate('All fields are required!')
             return
         }
+
         if (Number(data.startingPrice) <= 0) {
             setErrorCreate('Price should be positive number!')
             return
         }
+
         const inputDateTime = new Date(data.endDateTime);
         const currentDateTime = new Date();
+        
         if (inputDateTime.getTime() <= currentDateTime.getTime()) {
             setErrorCreate('Date and time should be later than current date and time!')
             return
@@ -174,7 +177,7 @@ function App() {
                     <Route path='/catalog/:bookId' element={< Details onDeleteBook={onDeleteBook} />} />
                     <Route path='/catalog/:bookId/edit' element={< Edit onBookEditSubmit={onBookEditSubmit} />} />
                     <Route path='/create' element={<Create />} />
-                    <Route path='/mybooks' element={<MyBooks books={books} setTriggerGetAll={setTriggerGetAll} />} />
+                    <Route path='/mybooks' element={<MyBooks books={books} triggerGetAll={triggerGetAll} setTriggerGetAll={setTriggerGetAll} />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/logout' element={<Logout />} />

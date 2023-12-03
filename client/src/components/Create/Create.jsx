@@ -53,7 +53,7 @@ export const Create = () => {
                     </div>
 
                     <div className='input-box'>
-                        <input type="number" name='startingPrice' min="0" step="0.01" pattern="^\d+(\.\d{1,2})?$"
+                        <input type="number" name='startingPrice' min="0" step="0.01" 
                             placeholder="Starting Price" value={values.startingPrice}
                             onChange={changeHandler} />
                     </div>

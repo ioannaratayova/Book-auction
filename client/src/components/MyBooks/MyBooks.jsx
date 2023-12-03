@@ -4,9 +4,9 @@ import { Context } from '../../contexts/Context.js';
 import { useContext, useEffect } from 'react';
 
 
-export const MyBooks = ({ books, setTriggerGetAll }) => {
+export const MyBooks = ({ books, triggerGetAll, setTriggerGetAll }) => {
     useEffect(() => {
-        setTriggerGetAll(true)
+        setTriggerGetAll(!triggerGetAll)
     }, [])
     const { auth } = useContext(Context);
     const isExpired = (book) => {

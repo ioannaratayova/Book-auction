@@ -61,7 +61,7 @@ export const Details = ({ onDeleteBook }) => {
             .then(result => {
                 setBook(result)
                 setTimeLeft(calculateTimeLeft(result.endDateTime))
-                changeValues({...result, currentPrice: ''})
+                changeValues({ ...result, currentPrice: '' })
             })
     }, [bookId, forceUpdate])
 
@@ -81,7 +81,6 @@ export const Details = ({ onDeleteBook }) => {
         const result = await bookService.addComment(bookId, { bookCommentEmail, comment })
         setBook(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }))
         setComment('')
-        setForceUpdate(!forceUpdate)
     }
 
     return (
@@ -101,13 +100,16 @@ export const Details = ({ onDeleteBook }) => {
                         </div>
 
                         {auth.accessToken && (
+
                             <div className="social-btn">
                                 {auth.email === book.owner && !book.lastBetBy && (
                                     <div>
                                         <button className='del-btn'>
                                             <Link to={`/catalog/${book._id}/edit`} className='link-style'>Edit</Link>
                                         </button>
-                                        <button className="del-btn" onClick={() => onDeleteBook(book)}>Delete</button>
+                                        <button
+                                            className="del-btn" onClick={() => onDeleteBook(book)}>Delete
+                                        </button>
                                     </div>
                                 )}
                                 {auth.email === book.owner && book.lastBetBy && (
