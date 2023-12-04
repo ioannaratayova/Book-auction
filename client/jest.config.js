@@ -8,6 +8,9 @@ const config = {
     collectCoverageFrom: [
         '**/*.{js,jsx}',
       ],
+    moduleNameMapper: {
+    '\\.(css|less)$': 'identity-obj-proxy',
+    },  
   };
   
   export default config;
