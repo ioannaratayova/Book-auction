@@ -7,8 +7,10 @@ import { useContext, useEffect } from 'react';
 export const MyBooks = ({ books, triggerGetAll, setTriggerGetAll }) => {
     useEffect(() => {
         setTriggerGetAll(!triggerGetAll)
-    }, [])
+    }, []);
+
     const { auth } = useContext(Context);
+    
     const isExpired = (book) => {
         const now = new Date().getTime();
         const bookTime = new Date(book.endDateTime).getTime();

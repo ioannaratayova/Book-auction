@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import './Details.css';
 import { Context } from '../../contexts/Context.js';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import * as bookService from '../../services/bookService.js';
 import { useForm } from '../../hooks/useForm.js';
 import _ from 'lodash';
@@ -102,6 +102,7 @@ export const Details = ({ onDeleteBook }) => {
                         {auth.accessToken && (
 
                             <div className="social-btn">
+
                                 {auth.email === book.owner && !book.lastBetBy && (
                                     <div>
                                         <button className='del-btn'>
